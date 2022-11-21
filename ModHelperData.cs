@@ -1,0 +1,14 @@
+﻿namespace PrimaryParagons
+{
+    public static class ModHelperData
+    {
+        public const string Version = "1.0.0";
+        public const string Name = "Primary Paragons";
+        public const string Description =
+            "This mod adds paragons for all of the primary towers, and adds OP versions to each, toggleable in mod settings. You can also change the price of each paragon in mod settings.<br><br>This is originally Greenphx's mod, I have just fixed it to work in the newer BTD6 versions and added new features.";
+
+        public const string RepoOwner = "Jonyboylovespie";
+        public const string RepoName = "PrimaryParagons";
+        public const string Icon = "Icon.png";
+    }
+}
