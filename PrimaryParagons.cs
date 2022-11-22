@@ -48,6 +48,7 @@ namespace PrimaryParagons
 {
     public class Main : BloonsTD6Mod
     {
+        public string Hi = "MelonLogger.Msg(System.ConsoleColor.Cyan, \"Hi\");";
         public override void OnNewGameModel(GameModel gameModel, Il2CppSystem.Collections.Generic.List<ModModel> mods)
         {
             gameModel.GetParagonUpgradeForTowerId("BombShooter").cost = CostHelper.CostForDifficulty(Settings.BombParagonCost, mods);
@@ -175,45 +176,81 @@ namespace PrimaryParagons
                 }
             }
         }
-        public override void OnMainMenu()
+        public override void OnTitleScreen()
         {
             if (Settings.BombParagonOP == true || Settings.GlueParagonOP == true || Settings.IceParagonOP == true || Settings.TackParagonOP == true)
             {
-                if(Settings.TogglePopup == true)
+                if (Settings.TogglePopup == true)
                 {
-                    PopupScreen.instance.ShowOkPopup("OP paragon's have been loaded, check the console to see which ones are on.");
+                    PopupScreen.instance.ShowOkPopup("OP primary paragon's have been loaded, check the console to see which ones are on.");
                 }
-                if(Settings.BombParagonOP == true)
+                if (Settings.BombParagonOP == false || Settings.TackParagonOP == false)
                 {
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "The bomb shooter paragon is on the OP version!");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "////////////////////////////////////////////////////////////");
+                    if (Settings.BombParagonOP == true)
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The bomb shooter paragon is on the OP version!       ///");
+                    }
+                    else
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The bomb shooter paragon is on the balanced version! ///");
+                    }
+                    if (Settings.GlueParagonOP == true)
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The glue gunner paragon is on the OP version!        ///");
+                    }
+                    else
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The glue gunner paragon is on the balanced version!  ///");
+                    }
+                    if (Settings.IceParagonOP == true)
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the OP version!         ///");
+                    }
+                    else
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the balanced version!   ///");
+                    }
+                    if (Settings.TackParagonOP == true)
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The tack shooter paragon is on the OP version!       ///");
+                    }
+                    else
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The tack shooter paragon is on the balanced version! ///");
+                    }
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "////////////////////////////////////////////////////////////");
+                }
+                else if (Settings.GlueParagonOP == false)
+                {
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "///////////////////////////////////////////////////////////");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The bomb shooter paragon is on the OP version!      ///");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The glue gunner paragon is on the balanced version! ///");
+                    if (Settings.IceParagonOP == true)
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the OP version!        ///");
+                    }
+                    else
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the balanced version!  ///");
+                    }
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The tack shooter paragon is on the OP version!      ///");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "///////////////////////////////////////////////////////////");
+                }
+                else if (Settings.IceParagonOP == false)
+                {
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "//////////////////////////////////////////////////////////");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The bomb shooter paragon is on the OP version!     ///");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The glue gunner paragon is on the OP version!      ///");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the balanced version! ///");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The tack shooter paragon is on the OP version!     ///");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "//////////////////////////////////////////////////////////");
                 }
                 else
                 {
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "The bomb shooter paragon is on the balanced version!");
-                }
-                if (Settings.GlueParagonOP == true)
-                {
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "The glue gunner paragon is on the OP version!");
-                }
-                else
-                {
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "The glue gunner paragon is on the balanced version!");
-                }
-                if (Settings.IceParagonOP == true)
-                {
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "The ice monkey paragon is on the OP version!");
-                }
-                else
-                {
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "The ice monkey paragon is on the balanced version!");
-                }
-                if (Settings.TackParagonOP == true)
-                {
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "The tack shooter paragon is on the OP version!");
-                }
-                else
-                {
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "The tack shooter paragon is on the balanced version!");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "///////////////////////////////////////////////////");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// All primary paragons are on OP the version! ///");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "///////////////////////////////////////////////////");
                 }
             }
             else
@@ -223,6 +260,7 @@ namespace PrimaryParagons
                     PopupScreen.instance.ShowOkPopup("All paragons have been set to balanced, if you would like to change this, check the mod settings.");
                 }
             }
+            MelonLogger.Msg(System.ConsoleColor.Red, "This chart is made on startup, this is not accurate if you change the settings, click reload start screen message in settings to reload this.");
         }
         public override void OnApplicationStart()
         {
@@ -263,7 +301,7 @@ namespace PrimaryParagons
                     clusterModel.pierce = 100.0f;
                     clusterModel.maxPierce = 100.0f;
                     clusterModel.GetBehavior<CreateProjectileOnExhaustFractionModel>().projectile.pierce = 100.0f;
-                    clusterModel.GetBehavior<CreateProjectileOnExhaustFractionModel>().projectile.maxPierce = 100.0f;;
+                    clusterModel.GetBehavior<CreateProjectileOnExhaustFractionModel>().projectile.maxPierce = 100.0f; ;
                     towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel_", true));
                     towerModel.GetDescendants<FilterInvisibleModel>().ForEach(model2 => model2.isActive = false);
                     attackModel.attackThroughWalls = true;
@@ -477,7 +515,93 @@ namespace PrimaryParagons
     }
     public class Settings : ModSettings
     {
-        private static readonly ModSettingCategory OPParagons = new ("Toggle OP Mode of Paragons")
+        public static void OPConsoleList()
+        {
+            if (Settings.BombParagonOP == true || Settings.GlueParagonOP == true || Settings.IceParagonOP == true || Settings.TackParagonOP == true)
+            {
+                if (Settings.TogglePopup == true)
+                {
+                    PopupScreen.instance.ShowOkPopup("OP primary paragon's have been loaded, check the console to see which ones are on.");
+                }
+                if (Settings.BombParagonOP == false || Settings.TackParagonOP == false)
+                {
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "////////////////////////////////////////////////////////////");
+                    if (Settings.BombParagonOP == true)
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The bomb shooter paragon is on the OP version!       ///");
+                    }
+                    else
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The bomb shooter paragon is on the balanced version! ///");
+                    }
+                    if (Settings.GlueParagonOP == true)
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The glue gunner paragon is on the OP version!        ///");
+                    }
+                    else
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The glue gunner paragon is on the balanced version!  ///");
+                    }
+                    if (Settings.IceParagonOP == true)
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the OP version!         ///");
+                    }
+                    else
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the balanced version!   ///");
+                    }
+                    if (Settings.TackParagonOP == true)
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The tack shooter paragon is on the OP version!       ///");
+                    }
+                    else
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The tack shooter paragon is on the balanced version! ///");
+                    }
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "////////////////////////////////////////////////////////////");
+                }
+                else if (Settings.GlueParagonOP == false)
+                {
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "///////////////////////////////////////////////////////////");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The bomb shooter paragon is on the OP version!      ///");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The glue gunner paragon is on the balanced version! ///");
+                    if (Settings.IceParagonOP == true)
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the OP version!        ///");
+                    }
+                    else
+                    {
+                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the balanced version!  ///");
+                    }
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The tack shooter paragon is on the OP version!      ///");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "///////////////////////////////////////////////////////////");
+                }
+                else if (Settings.IceParagonOP == false)
+                {
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "//////////////////////////////////////////////////////////");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The bomb shooter paragon is on the OP version!     ///");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The glue gunner paragon is on the OP version!      ///");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the balanced version! ///");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The tack shooter paragon is on the OP version!     ///");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "//////////////////////////////////////////////////////////");
+                }
+                else
+                {
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "///////////////////////////////////////////////////");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// All primary paragons are on OP the version! ///");
+                    MelonLogger.Msg(System.ConsoleColor.Cyan, "///////////////////////////////////////////////////");
+                }
+            }
+            else
+            {
+                if (Settings.TogglePopup == true)
+                {
+                    PopupScreen.instance.ShowOkPopup("All paragons have been set to balanced, if you would like to change this, check the mod settings.");
+                }
+            }
+            MelonLogger.Msg(System.ConsoleColor.Red, "This chart is made on clicking the button, this is not accurate if you change the settings, click reload start screen message in settings to reload this.");
+        }
+        private static readonly ModSettingCategory OPParagons = new("Toggle OP Mode of Paragons")
         {
             modifyCategory = category =>
             {
@@ -547,6 +671,12 @@ namespace PrimaryParagons
             icon = GetTextureGUID<Main>("FieryDoom_Portrait")
         };
 
+        public static readonly ModSettingButton PushMe = new(() => OPConsoleList())
+        {
+            displayName = "Reload Start Screen Message",
+            buttonText = "Reload",
+            buttonSprite = VanillaSprites.YellowBtnLong
+        };
         public static readonly ModSettingBool TogglePopup = new(true)
         {
             displayName = "Toggle Popup",
