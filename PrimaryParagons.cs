@@ -252,15 +252,15 @@ namespace PrimaryParagons
                     MelonLogger.Msg(System.ConsoleColor.Cyan, "/// All primary paragons are on OP the version! ///");
                     MelonLogger.Msg(System.ConsoleColor.Cyan, "///////////////////////////////////////////////////");
                 }
+                MelonLogger.Msg(System.ConsoleColor.Red, "This chart is made on startup, this is not accurate if you change the settings, click reload start screen message in settings to reload this.");
             }
             else
             {
                 if (Settings.TogglePopup == true)
                 {
-                    PopupScreen.instance.ShowOkPopup("All paragons have been set to balanced, if you would like to change this, check the mod settings.");
+                    PopupScreen.instance.ShowOkPopup("All primary paragons have been set to balanced, if you would like to change this, check the mod settings.");
                 }
             }
-            MelonLogger.Msg(System.ConsoleColor.Red, "This chart is made on startup, this is not accurate if you change the settings, click reload start screen message in settings to reload this.");
         }
         public override void OnApplicationStart()
         {
