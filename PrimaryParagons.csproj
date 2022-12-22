@@ -51,8 +51,8 @@
     <EmbeddedResource Include="Displays\GlueGunnerParagonDIsplays\SuperbGlue_Icon.png" />
     <EmbeddedResource Include="Displays\GlueGunnerParagonDIsplays\SuperbGlue_Portrait.png" />
     <EmbeddedResource Include="Displays\IceMonkeyParagonDIsplays\0Kelvin_Display.png" />
-	<EmbeddedResource Include="Displays\IceMonkeyParagonDIsplays\0Kelvin_Icon.png" />
-	<EmbeddedResource Include="Displays\IceMonkeyParagonDIsplays\0Kelvin_Portrait.png" />
+    <EmbeddedResource Include="Displays\IceMonkeyParagonDIsplays\0Kelvin_Icon.png" />
+    <EmbeddedResource Include="Displays\IceMonkeyParagonDIsplays\0Kelvin_Portrait.png" />
     <EmbeddedResource Include="Displays\TackShooterParagonDIsplays\FieryDoom_Display.png" />
     <EmbeddedResource Include="Displays\TackShooterParagonDIsplays\FieryDoom_Icon.png" />
     <EmbeddedResource Include="Displays\TackShooterParagonDIsplays\FieryDoom_Portrait.png" />
@@ -69,6 +69,9 @@
     <Reference Include="Btd6ModHelper">
       <HintPath>..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6 0.5.5\Mods\Btd6ModHelper.dll</HintPath>
     </Reference>
+    <Reference Include="Il2CppInterop.Runtime">
+      <HintPath>..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\MelonLoader\net6\Il2CppInterop.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Il2Cppmscorlib, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6 0.5.5\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
@@ -80,10 +83,6 @@
     <Reference Include="MelonLoader, Version=0.5.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6 0.5.5\MelonLoader\MelonLoader.dll</HintPath>
-    </Reference>
-    <Reference Include="UnhollowerBaseLib, Version=0.4.18.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6 0.5.5\MelonLoader\Dependencies\Il2CppAssemblyGenerator\Il2CppAssemblyUnhollower\UnhollowerBaseLib.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
