@@ -48,7 +48,6 @@ namespace PrimaryParagons
 {
     public class Main : BloonsTD6Mod
     {
-        public string Hi = "MelonLogger.Msg(System.ConsoleColor.Cyan, \"Hi\");";
         public override void OnNewGameModel(GameModel gameModel, Il2CppSystem.Collections.Generic.List<ModModel> mods)
         {
             gameModel.GetParagonUpgradeForTowerId("BombShooter").cost = CostHelper.CostForDifficulty(Settings.BombParagonCost, mods);
