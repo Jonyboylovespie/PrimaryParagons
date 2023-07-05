@@ -255,7 +255,6 @@ namespace PrimaryParagons
             public class MOABExecutioner : ModVanillaParagon
             {
                 public override string BaseTower => "BombShooter-520";
-                public override string Name => "BombShooter";
             }
             public class MOABExecutionerUpgrade : ModParagonUpgrade<MOABExecutioner>
             {
@@ -323,7 +322,6 @@ namespace PrimaryParagons
             public class SuperbGlue : ModVanillaParagon
             {
                 public override string BaseTower => "GlueGunner-205";
-                public override string Name => "GlueGunner";
             }
             public class SuperbGlueUpgrade : ModParagonUpgrade<SuperbGlue>
             {
@@ -370,7 +368,6 @@ namespace PrimaryParagons
             public class _0Kelvin : ModVanillaParagon
             {
                 public override string BaseTower => "IceMonkey-520";
-                public override string Name => "IceMonkey";
             }
             public class _0KelvinUpgrade : ModParagonUpgrade<_0Kelvin>
             {
@@ -432,7 +429,6 @@ namespace PrimaryParagons
             public class FieryDoom : ModVanillaParagon
             {
                 public override string BaseTower => "TackShooter-205";
-                public override string Name => "TackShooter";
             }
             public class FieryDoomUpgrade : ModParagonUpgrade<FieryDoom>
             {
@@ -461,7 +457,7 @@ namespace PrimaryParagons
                     attackModel2.range = 2000.0f;
                     attackModel2.fireWithoutTarget = true;
                     attackModel2.weapons[0].Rate = 5.0f;
-                    attackModel2.weapons[0].emission = new ArcEmissionModel("ArcEmissionModel_", 250, 0.0f, 360.0f, null, false);
+                    attackModel2.weapons[0].emission = new ArcEmissionModel("ArcEmissionModel_", 250, 0.0f, 360.0f, null, false, false);
                     attackModel2.weapons[0].projectile.pierce = 50.0f;
                     attackModel2.weapons[0].projectile.GetDamageModel().damage = 100.0f;
                     attackModel2.weapons[0].projectile.GetBehavior<TravelStraitModel>().Lifespan = 100.0f;
