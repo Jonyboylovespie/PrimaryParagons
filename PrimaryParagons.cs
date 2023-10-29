@@ -4,25 +4,16 @@ using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Unity;
 using Il2CppAssets.Scripts.Unity.Display;
 using BTD_Mod_Helper;
-using BTD_Mod_Helper.Api;
 using BTD_Mod_Helper.Api.Display;
-using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Api.Towers;
 using BTD_Mod_Helper.Extensions;
 using MelonLoader;
 using ModHelperData = PrimaryParagons.ModHelperData;
-using BTD_Mod_Helper.Api.ModOptions;
-using Il2CppAssets.Scripts.Unity.UI_New.Popups;
 using Il2CppAssets.Scripts.Models.Towers.Filters;
 using Il2CppAssets.Scripts.Models.GenericBehaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
 using UnityEngine;
-using BTD_Mod_Helper.Api.Data;
-using BTD_Mod_Helper.Api.Components;
-using Il2CppAssets.Scripts.Models.Towers.Mods;
-using Il2CppAssets.Scripts.Models;
-using BTD_Mod_Helper.Api.Helpers;
 using Il2CppAssets.Scripts.Models.Bloons.Behaviors;
 using Il2Cpp;
 
@@ -33,219 +24,6 @@ namespace PrimaryParagons
 {
     public class Main : BloonsTD6Mod
     {
-        public override void OnNewGameModel(GameModel gameModel, Il2CppSystem.Collections.Generic.List<ModModel> mods)
-        {
-            gameModel.GetParagonUpgradeForTowerId("BombShooter").cost = CostHelper.CostForDifficulty(Settings.BombParagonCost, mods);
-            gameModel.GetParagonUpgradeForTowerId("GlueGunner").cost = CostHelper.CostForDifficulty(Settings.GlueParagonCost, mods);
-            gameModel.GetParagonUpgradeForTowerId("IceMonkey").cost = CostHelper.CostForDifficulty(Settings.IceParagonCost, mods);
-            gameModel.GetParagonUpgradeForTowerId("TackShooter").cost = CostHelper.CostForDifficulty(Settings.TackParagonCost, mods);
-
-            foreach (var towerModel in gameModel.towers)
-            {
-                if (towerModel.appliedUpgrades.Contains(ModContent.UpgradeID<BombParagon.MOABExecutionerUpgrade>()))
-                {
-                    if (Settings.BombParagonOP == true)
-                    {
-                        var attackModel = towerModel.GetAttackModel();
-                        var projectileModel = attackModel.weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile;
-                        projectileModel.GetDamageModel().damage = 99999999f;
-                        attackModel.weapons[0].Rate = 0.001f;
-                        var clusterModel = attackModel.weapons[0].projectile.GetBehavior<CreateProjectileOnExhaustFractionModel>().projectile;
-                        clusterModel.pierce = 9999999f;
-                        clusterModel.maxPierce = 9999999f;
-                        clusterModel.GetBehavior<CreateProjectileOnExhaustFractionModel>().projectile.pierce = 9999999f;
-                        clusterModel.GetBehavior<CreateProjectileOnExhaustFractionModel>().projectile.maxPierce = 9999999f;
-                        towerModel.range = 999;
-                        attackModel.range = 999;
-                    }
-                    else
-                    {
-                        var attackModel = towerModel.GetAttackModel();
-                        var projectileModel = attackModel.weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile;
-                        projectileModel.GetDamageModel().damage = 100.0f;
-                        attackModel.weapons[0].Rate = 0.25f;
-                        var clusterModel = attackModel.weapons[0].projectile.GetBehavior<CreateProjectileOnExhaustFractionModel>().projectile;
-                        clusterModel.pierce = 100.0f;
-                        clusterModel.maxPierce = 100.0f;
-                        clusterModel.GetBehavior<CreateProjectileOnExhaustFractionModel>().projectile.pierce = 100.0f;
-                        clusterModel.GetBehavior<CreateProjectileOnExhaustFractionModel>().projectile.maxPierce = 100.0f;
-                        towerModel.range = 47;
-                        attackModel.range = 47;
-                    }
-                }
-                if (towerModel.appliedUpgrades.Contains(ModContent.UpgradeID<GlueParagon.SuperbGlueUpgrade>()))
-                {
-                    if (Settings.GlueParagonOP == true)
-                    {
-                        var attackModel = towerModel.GetAttackModel();
-                        towerModel.range *= 999f;
-                        attackModel.range *= 999f;
-                        attackModel.weapons[0].Rate = 0.001f;
-                        attackModel.weapons[0].projectile.GetBehavior<AddBonusDamagePerHitToBloonModel>().perHitDamageAddition = 99999999f;
-                    }
-                    else
-                    {
-                        var attackModel = towerModel.GetAttackModel();
-                        towerModel.range *= 69f;
-                        attackModel.range *= 69f;
-                        attackModel.weapons[0].Rate = 0.001f;
-                        attackModel.weapons[0].projectile.GetBehavior<AddBonusDamagePerHitToBloonModel>().perHitDamageAddition = 25.0f;
-                    }
-                }
-                if (towerModel.appliedUpgrades.Contains(ModContent.UpgradeID<IceParagon._0KelvinUpgrade>()))
-                {
-                    if (Settings.IceParagonOP == true)
-                    {
-                        var attackModel = towerModel.GetAttackModel();
-                        towerModel.range *= 999f;
-                        attackModel.range *= 999f;
-                        attackModel.weapons[0].Rate = 0.001f;
-                        attackModel.weapons[0].projectile.GetDamageModel().damage = 99999999f;
-                        attackModel.weapons[0].projectile.GetBehavior<AddBonusDamagePerHitToBloonModel>().perHitDamageAddition = 99999999f;
-                        var attackModel2 = towerModel.GetAttackModel(1);
-                        attackModel2.range = towerModel.range;
-                        attackModel2.weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile.GetDamageModel().damage = 99999999f;
-                    }
-                    else
-                    {
-                        var attackModel = towerModel.GetAttackModel();
-                        towerModel.range *= 62.5f;
-                        attackModel.range *= 62.5f;
-                        attackModel.weapons[0].Rate = 0.25f;
-                        attackModel.weapons[0].projectile.GetDamageModel().damage = 100.0f;
-                        attackModel.weapons[0].projectile.GetBehavior<AddBonusDamagePerHitToBloonModel>().perHitDamageAddition = 50.0f;
-                        var attackModel2 = towerModel.GetAttackModel(1);
-                        attackModel2.range = towerModel.range;
-                        attackModel2.weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile.GetDamageModel().damage = 50.0f;
-                    }
-                }
-                if (towerModel.appliedUpgrades.Contains(ModContent.UpgradeID<TackParagon.FieryDoomUpgrade>()))
-                {
-                    if (Settings.TackParagonOP == true)
-                    {
-                        var attackModel = towerModel.GetAttackModel();
-                        towerModel.range *= 999f;
-                        attackModel.range *= 999f;
-                        attackModel.weapons[0].Rate = 0.01f;
-                        var projectileModel = attackModel.weapons[0].projectile;
-                        projectileModel.pierce = 9999999f;
-                        projectileModel.GetDamageModel().damage = 99999999f;
-                        var attackModel2 = towerModel.GetAttackModel(1);
-                        attackModel2.fireWithoutTarget = true;
-                        attackModel2.weapons[0].Rate = 0.1f;
-                        attackModel2.weapons[0].projectile.pierce = 9999999f;
-                        attackModel2.weapons[0].projectile.GetDamageModel().damage = 99999999f;
-                        var attackModel3 = towerModel.GetAttackModel(2);
-                        attackModel3.weapons[0].projectile.GetDamageModel().damage = 99999999f;
-                        projectileModel.GetBehavior<TravelStraitModel>().Lifespan *= 100f;
-                    }
-                    else
-                    {
-                        var attackModel = towerModel.GetAttackModel();
-                        towerModel.range *= 60f;
-                        attackModel.range *= 60f;
-                        attackModel.weapons[0].Rate = 0.05f;
-                        var projectileModel = attackModel.weapons[0].projectile;
-                        projectileModel.pierce = 100.0f;
-                        projectileModel.GetDamageModel().damage = 75f;
-                        var attackModel2 = towerModel.GetAttackModel(1);
-                        attackModel2.fireWithoutTarget = true;
-                        attackModel2.weapons[0].Rate = 5.0f;
-                        attackModel2.weapons[0].projectile.pierce = 50.0f;
-                        attackModel2.weapons[0].projectile.GetDamageModel().damage = 100.0f;
-                        var attackModel3 = towerModel.GetAttackModel(2);
-                        attackModel3.weapons[0].projectile.GetDamageModel().damage = 20.0f;
-                        projectileModel.GetBehavior<TravelStraitModel>().Lifespan *= 0.3f;
-                    }
-                }
-            }
-        }
-        public override void OnTitleScreen()
-        {
-            if (Settings.BombParagonOP == true || Settings.GlueParagonOP == true || Settings.IceParagonOP == true || Settings.TackParagonOP == true)
-            {
-                if (Settings.TogglePopup == true)
-                {
-                    PopupScreen.instance.ShowOkPopup("OP primary paragon's have been loaded, check the console to see which ones are on.");
-                }
-                if (Settings.BombParagonOP == false || Settings.TackParagonOP == false)
-                {
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "////////////////////////////////////////////////////////////");
-                    if (Settings.BombParagonOP == true)
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The bomb shooter paragon is on the OP version!       ///");
-                    }
-                    else
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The bomb shooter paragon is on the balanced version! ///");
-                    }
-                    if (Settings.GlueParagonOP == true)
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The glue gunner paragon is on the OP version!        ///");
-                    }
-                    else
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The glue gunner paragon is on the balanced version!  ///");
-                    }
-                    if (Settings.IceParagonOP == true)
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the OP version!         ///");
-                    }
-                    else
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the balanced version!   ///");
-                    }
-                    if (Settings.TackParagonOP == true)
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The tack shooter paragon is on the OP version!       ///");
-                    }
-                    else
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The tack shooter paragon is on the balanced version! ///");
-                    }
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "////////////////////////////////////////////////////////////");
-                }
-                else if (Settings.GlueParagonOP == false)
-                {
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "///////////////////////////////////////////////////////////");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The bomb shooter paragon is on the OP version!      ///");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The glue gunner paragon is on the balanced version! ///");
-                    if (Settings.IceParagonOP == true)
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the OP version!        ///");
-                    }
-                    else
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the balanced version!  ///");
-                    }
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The tack shooter paragon is on the OP version!      ///");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "///////////////////////////////////////////////////////////");
-                }
-                else if (Settings.IceParagonOP == false)
-                {
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "//////////////////////////////////////////////////////////");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The bomb shooter paragon is on the OP version!     ///");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The glue gunner paragon is on the OP version!      ///");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the balanced version! ///");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The tack shooter paragon is on the OP version!     ///");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "//////////////////////////////////////////////////////////");
-                }
-                else
-                {
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "///////////////////////////////////////////////////");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// All primary paragons are on OP the version! ///");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "///////////////////////////////////////////////////");
-                }
-                MelonLogger.Msg(System.ConsoleColor.Red, "This chart is made on startup, this is not accurate if you change the settings, click reload start screen message in settings to reload this.");
-            }
-            else
-            {
-                if (Settings.TogglePopup == true)
-                {
-                    PopupScreen.instance.ShowOkPopup("All primary paragons have been set to balanced, if you would like to change this, check the mod settings.");
-                }
-            }
-        }
         public override void OnApplicationStart()
         {
             MelonLogger.Msg(System.ConsoleColor.Cyan, "Primary Paragons Loaded!");
@@ -268,13 +46,13 @@ namespace PrimaryParagons
                 {
                     var attackModel = towerModel.GetAttackModel();
                     var weaponModel = towerModel.GetWeapon();
-                    attackModel.weapons[0].Rate = 0.25f;
+                    attackModel.weapons[0].Rate = 0.1f;
                     attackModel.weapons[0].projectile.ApplyDisplay<BombShooterParagonDisplay_Projectile>();
                     attackModel.weapons[0].projectile.AddBehavior(Game.instance.model.GetTowerFromId("BombShooter-005").GetWeapon().projectile.GetBehaviors<CreateProjectileOnExhaustFractionModel>()[1].Duplicate());
                     var projectileModel = attackModel.weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile;
                     projectileModel.AddBehavior(new DamageModifierForTagModel("Moabs", "Moabs", 1.0f, 1000.0f, false, true));
                     projectileModel.AddBehavior(new DamageModifierForTagModel("Boss", "Boss", 1.0f, 1000.0f, false, true));
-                    projectileModel.GetDamageModel().damage = 100.0f;
+                    projectileModel.GetDamageModel().damage = 250.0f;
                     projectileModel.GetDamageModel().immuneBloonProperties = BloonProperties.None;
                     var clusterModel = attackModel.weapons[0].projectile.GetBehavior<CreateProjectileOnExhaustFractionModel>().projectile;
                     clusterModel.AddBehavior(new DamageModifierForTagModel("Moabs", "Moabs", 1.0f, 100.0f, false, true));
@@ -325,7 +103,7 @@ namespace PrimaryParagons
             }
             public class SuperbGlueUpgrade : ModParagonUpgrade<SuperbGlue>
             {
-                public override int Cost => 600000;
+                public override int Cost => 750000;
                 public override string Description => "Glue that completely stops almost all Bloons and decimates every type of Bloon. Bloons affected by glue take extra damage.";
                 public override string DisplayName => "Superb Glue";
 
@@ -339,8 +117,9 @@ namespace PrimaryParagons
                     attackModel.weapons[0].Rate = 0.2f;
                     attackModel.weapons[0].projectile.GetBehavior<TravelStraitModel>().Lifespan *= 1.5f;
                     attackModel.weapons[0].projectile.AddBehavior(Game.instance.model.GetTowerFromId("GlueGunner-250").GetAbility().GetBehavior<ActivateAttackModel>().attacks[0].weapons[0].projectile.GetBehavior<AddBonusDamagePerHitToBloonModel>().Duplicate());
-                    attackModel.weapons[0].projectile.GetBehavior<AddBonusDamagePerHitToBloonModel>().perHitDamageAddition = 25.0f;
+                    attackModel.weapons[0].projectile.GetBehavior<AddBonusDamagePerHitToBloonModel>().perHitDamageAddition = 500f;
                     attackModel.weapons[0].projectile.GetDescendants<DamageOverTimeModel>().ForEach(model3 => model3.Interval = 0.05f);
+                    attackModel.weapons[0].projectile.GetDescendants<DamageOverTimeModel>().ForEach(model3 => model3.damage = 200f);
                     towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel_", true));
                     towerModel.GetDescendants<FilterInvisibleModel>().ForEach(model2 => model2.isActive = false);
                     attackModel.attackThroughWalls = true;
@@ -371,7 +150,7 @@ namespace PrimaryParagons
             }
             public class _0KelvinUpgrade : ModParagonUpgrade<_0Kelvin>
             {
-                public override int Cost => 400000;
+                public override int Cost => 600000;
                 public override string Description => "Only the strongest of Bloons are able to resist the cold icy winds.";
                 public override string DisplayName => "0° Kelvin";
 
@@ -390,8 +169,8 @@ namespace PrimaryParagons
                     var attackModel = towerModel.GetAttackModel();
                     towerModel.range *= 2.5f;
                     attackModel.range *= 2.5f;
-                    attackModel.weapons[0].Rate = 0.25f;
-                    attackModel.weapons[0].projectile.GetDamageModel().damage = 100.0f;
+                    attackModel.weapons[0].Rate = 0.05f;
+                    attackModel.weapons[0].projectile.GetDamageModel().damage = 200.0f;
                     attackModel.weapons[0].projectile.GetBehavior<AddBonusDamagePerHitToBloonModel>().perHitDamageAddition = 50.0f;
                     var iceShard = attackModel.weapons[0].projectile.GetBehavior<AddBehaviorToBloonModel>().GetBehavior<EmitOnPopModel>().Duplicate();
                     iceShard.projectile.GetBehavior<TravelStraitModel>().Lifespan = 4.0f;
@@ -400,8 +179,9 @@ namespace PrimaryParagons
                     towerModel.AddBehavior(Game.instance.model.GetTowerFromId("IceMonkey-025").GetAttackModel().Duplicate());
                     var attackModel2 = towerModel.GetAttackModel(1);
                     attackModel2.range = towerModel.range;
-                    attackModel2.weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile.GetDamageModel().damage = 50.0f;
+                    attackModel2.weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile.GetDamageModel().damage = 150.0f;
                     attackModel2.weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile.GetDamageModel().immuneBloonProperties = BloonProperties.None;
+                    towerModel.GetDescendants<DamageModel>().ForEach(x => x.damage *= 5f);
                     towerModel.AddBehavior(new OverrideCamoDetectionModel("OverrideCamoDetectionModel_", true));
                     towerModel.GetDescendants<FilterInvisibleModel>().ForEach(model2 => model2.isActive = false);
                     attackModel.attackThroughWalls = true;
@@ -492,176 +272,5 @@ namespace PrimaryParagons
                 }
             }
         }
-    }
-    public class Settings : ModSettings
-    {
-        public static void OPConsoleList()
-        {
-            if (Settings.BombParagonOP == true || Settings.GlueParagonOP == true || Settings.IceParagonOP == true || Settings.TackParagonOP == true)
-            {
-                if (Settings.TogglePopup == true)
-                {
-                    PopupScreen.instance.ShowOkPopup("OP primary paragon's have been loaded, check the console to see which ones are on.");
-                }
-                if (Settings.BombParagonOP == false || Settings.TackParagonOP == false)
-                {
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "////////////////////////////////////////////////////////////");
-                    if (Settings.BombParagonOP == true)
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The bomb shooter paragon is on the OP version!       ///");
-                    }
-                    else
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The bomb shooter paragon is on the balanced version! ///");
-                    }
-                    if (Settings.GlueParagonOP == true)
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The glue gunner paragon is on the OP version!        ///");
-                    }
-                    else
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The glue gunner paragon is on the balanced version!  ///");
-                    }
-                    if (Settings.IceParagonOP == true)
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the OP version!         ///");
-                    }
-                    else
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the balanced version!   ///");
-                    }
-                    if (Settings.TackParagonOP == true)
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The tack shooter paragon is on the OP version!       ///");
-                    }
-                    else
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The tack shooter paragon is on the balanced version! ///");
-                    }
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "////////////////////////////////////////////////////////////");
-                }
-                else if (Settings.GlueParagonOP == false)
-                {
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "///////////////////////////////////////////////////////////");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The bomb shooter paragon is on the OP version!      ///");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The glue gunner paragon is on the balanced version! ///");
-                    if (Settings.IceParagonOP == true)
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the OP version!        ///");
-                    }
-                    else
-                    {
-                        MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the balanced version!  ///");
-                    }
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The tack shooter paragon is on the OP version!      ///");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "///////////////////////////////////////////////////////////");
-                }
-                else if (Settings.IceParagonOP == false)
-                {
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "//////////////////////////////////////////////////////////");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The bomb shooter paragon is on the OP version!     ///");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The glue gunner paragon is on the OP version!      ///");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The ice monkey paragon is on the balanced version! ///");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// The tack shooter paragon is on the OP version!     ///");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "//////////////////////////////////////////////////////////");
-                }
-                else
-                {
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "///////////////////////////////////////////////////");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "/// All primary paragons are on OP the version! ///");
-                    MelonLogger.Msg(System.ConsoleColor.Cyan, "///////////////////////////////////////////////////");
-                }
-            }
-            else
-            {
-                if (Settings.TogglePopup == true)
-                {
-                    PopupScreen.instance.ShowOkPopup("All paragons have been set to balanced, if you would like to change this, check the mod settings.");
-                }
-            }
-            MelonLogger.Msg(System.ConsoleColor.Red, "This chart is made on clicking the button, this is not accurate if you change the settings, click reload start screen message in settings to reload this.");
-        }
-        private static readonly ModSettingCategory OPParagons = new("Toggle OP Mode of Paragons")
-        {
-            modifyCategory = category =>
-            {
-
-            }
-        };
-
-        public static readonly ModSettingBool BombParagonOP = new(false)
-        {
-            displayName = "OP Mode of MOAB Executioner",
-            button = true,
-            category = OPParagons,
-            icon = GetTextureGUID<Main>("MOABExecutioner_Portrait")
-        };
-        public static readonly ModSettingBool GlueParagonOP = new(false)
-        {
-            displayName = "OP Mode of Superb Glue",
-            button = true,
-            category = OPParagons,
-            icon = GetTextureGUID<Main>("SuperbGlue_Portrait")
-        };
-        public static readonly ModSettingBool IceParagonOP = new(false)
-        {
-            displayName = "OP Mode of 0° Kelvin",
-            button = true,
-            category = OPParagons,
-            icon = GetTextureGUID<Main>("0Kelvin_Portrait")
-        };
-        public static readonly ModSettingBool TackParagonOP = new(false)
-        {
-            displayName = "OP Mode of Fiery Doom",
-            button = true,
-            category = OPParagons,
-            icon = GetTextureGUID<Main>("FieryDoom_Portrait")
-        };
-
-        private static readonly ModSettingCategory ParagonCost = new("Paragon Costs")
-        {
-            modifyCategory = category =>
-            {
-
-            }
-        };
-
-        public static readonly ModSettingInt BombParagonCost = new(900000)
-        {
-            displayName = "MOAB Executioner Cost",
-            category = ParagonCost,
-            icon = GetTextureGUID<Main>("MOABExecutioner_Portrait")
-        };
-        public static readonly ModSettingInt GlueParagonCost = new(600000)
-        {
-            displayName = "Superb Glue Cost",
-            category = ParagonCost,
-            icon = GetTextureGUID<Main>("SuperbGlue_Portrait")
-        };
-        public static readonly ModSettingInt IceParagonCost = new(400000)
-        {
-            displayName = "0° Kelvin Cost",
-            category = ParagonCost,
-            icon = GetTextureGUID<Main>("0Kelvin_Portrait")
-        };
-        public static readonly ModSettingInt TackParagonCost = new(1200000)
-        {
-            displayName = "Fiery Doom Cost",
-            category = ParagonCost,
-            icon = GetTextureGUID<Main>("FieryDoom_Portrait")
-        };
-
-        public static readonly ModSettingButton PushMe = new(() => OPConsoleList())
-        {
-            displayName = "Reload Start Screen Message",
-            buttonText = "Reload",
-            buttonSprite = VanillaSprites.YellowBtnLong
-        };
-        public static readonly ModSettingBool TogglePopup = new(true)
-        {
-            displayName = "Toggle Popup",
-            description = "Toggles the popup on main menu that tells you your paragon versions (OP/Balanced)",
-            button = true,
-        };
     }
 }
